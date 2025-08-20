@@ -628,41 +628,35 @@
         }
       }, 1000);
 
-      const music = document.getElementById("bg-music");
-      const btn = document.getElementById("musicBtn");
+       const music = document.getElementById("bg-music");
+  const btn = document.getElementById("musicBtn");
 
-      window.addEventListener("load", () => {
-        music.play().catch(() => {
-          console.log(
-            "Autoplay dicegah browser, tekan tombol untuk mulai musik."
-          );
-        });
-      });
-
-      window.addEventListener("beforeunload", () => {
-        music.pause();
-        music.currentTime = 0; // reset ke awal
-      });
-
-      btn.addEventListener("click", () => {
-        if (music.paused) {
-          music.play();
-          btn.textContent = "🔇"; // icon berubah saat musik on
-        } else {
-          music.pause();
-          btn.textContent = "🎵"; // icon kembali
-        }
-      });
-
-      function bukaUndangan() {
-      document.getElementById("cover").style.display = "none";
-      document.getElementById("konten").style.display = "block";
-
-      let musik = document.getElementById("bg-music");
-      musik.play().catch(() => {
-        alert("Klik sekali lagi untuk memulai musik");
-      });
+  // tombol musik manual
+  btn.addEventListener("click", () => {
+    if (music.paused) {
+      music.play();
+      btn.textContent = "🔇"; // icon berubah saat musik on
+    } else {
+      music.pause();
+      btn.textContent = "🎵"; // icon kembali
     }
+  });
+
+  // fungsi buka undangan
+  function openInvitation() {
+    const cover = document.getElementById("cover");
+    const mainContent = document.getElementById("mainContent");
+
+    // coba play musik otomatis setelah klik
+    music.play().then(() => {
+      btn.textContent = "🔇"; // langsung icon mute
+    }).catch(() => {
+      // kalau gagal (browser block autoplay)
+      btn.textContent = "🎵"; 
+    });
+  }
+
+
     
       document.addEventListener("contextmenu", (event) =>
         event.preventDefault()
