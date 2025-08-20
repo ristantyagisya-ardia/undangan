@@ -593,16 +593,6 @@
     </div>
 
     <script>
-      function openInvitation() {
-        const cover = document.getElementById("cover");
-        const mainContent = document.getElementById("mainContent");
-
-        cover.classList.add("hide");
-        setTimeout(() => {
-          mainContent.classList.add("show");
-        }, 1000);
-      }
-
       const countDownDate = new Date("Oct 8, 2025 08:00:00 GMT+0700").getTime();
 
       const countdownFunction = setInterval(function () {
@@ -628,10 +618,33 @@
         }
       }, 1000);
 
-       const music = document.getElementById("bg-music");
+      
+       function openInvitation() {
+    const cover = document.getElementById("cover");
+    const mainContent = document.getElementById("mainContent");
+    const music = document.getElementById("bg-music");
+
+    cover.classList.add("hide");
+    setTimeout(() => {
+      mainContent.classList.add("show");
+    }, 1000);
+
+    // Musik otomatis play saat undangan dibuka
+    music.play().catch(() => {
+      console.log("Autoplay dicegah browser, tekan tombol musik 🎵.");
+    });
+  }
+
+  const music = document.getElementById("bg-music");
   const btn = document.getElementById("musicBtn");
 
-  // tombol musik manual
+  // Reset musik kalau halaman di-refresh / ditutup
+  window.addEventListener("beforeunload", () => {
+    music.pause();
+    music.currentTime = 0;
+  });
+
+  // Toggle musik manual lewat tombol 🎵
   btn.addEventListener("click", () => {
     if (music.paused) {
       music.play();
@@ -642,22 +655,6 @@
     }
   });
 
-  // fungsi buka undangan
-  function openInvitation() {
-    const cover = document.getElementById("cover");
-    const mainContent = document.getElementById("mainContent");
-
-    // coba play musik otomatis setelah klik
-    music.play().then(() => {
-      btn.textContent = "🔇"; // langsung icon mute
-    }).catch(() => {
-      // kalau gagal (browser block autoplay)
-      btn.textContent = "🎵"; 
-    });
-  }
-
-
-    
       document.addEventListener("contextmenu", (event) =>
         event.preventDefault()
       );
