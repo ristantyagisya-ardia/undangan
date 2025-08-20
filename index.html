@@ -654,6 +654,16 @@
         }
       });
 
+      function bukaUndangan() {
+      document.getElementById("cover").style.display = "none";
+      document.getElementById("konten").style.display = "block";
+
+      let musik = document.getElementById("bg-music");
+      musik.play().catch(() => {
+        alert("Klik sekali lagi untuk memulai musik");
+      });
+    }
+    
       document.addEventListener("contextmenu", (event) =>
         event.preventDefault()
       );
